@@ -7,6 +7,8 @@
 > A comprehensive job board website built with Django that allows users to post jobs, apply for positions, and manage their profiles.
 
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7ee92732-b255-48c6-a730-f089334934a3" />
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/b373e154-52d4-4d6b-8268-ab64b466b56e" />
+
 
 
 ---
