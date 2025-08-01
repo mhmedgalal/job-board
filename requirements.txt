@@ -1,0 +1,5 @@
+Django==5.1.7
+django-bootstrap5==23.3
+django-filter==23.5
+python-dotenv==1.0.0
+Pillow==10.1.0 
