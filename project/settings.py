@@ -157,3 +157,6 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", "False") == "True"
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if os.environ.get('RAILWAY_STATIC_FIX', 'False') == 'True':
+    import subprocess
+    subprocess.run(["python", "manage.py", "collectstatic", "--noinput"])
