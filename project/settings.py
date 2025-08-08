@@ -87,11 +87,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 if os.getenv("DATABASE_URL"):  # لو فيه PostgreSQL URL (زي في Railway)
     DATABASES = {
-        'default': dj_database_url.config(
-            default=os.getenv("DATABASE_URL"),
-            conn_max_age=600,
-            ssl_require=True
-        )
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+        
     }
 else:  # تشغيل محلي باستخدام SQLite
     DATABASES = {
