@@ -1,103 +1,71 @@
-# Job Board - Django Project
+# Job Board Project
 
-A comprehensive job board website built with Django that allows users to post jobs, apply for positions, and manage their profiles.
+مشروع لوحة الوظائف مبني بـ Django
 
-## Features
+## النشر على Railway
 
-- **User Authentication**: Register, login, and profile management
-- **Job Posting**: Employers can post new job opportunities
-- **Job Search**: Browse and filter available jobs
-- **Job Applications**: Users can apply for jobs with CV upload
-- **Blog System**: News and articles section
-- **Contact Form**: Contact page with email functionality
-- **Responsive Design**: Modern UI that works on all devices
+### الخطوات:
 
-## Technologies Used
+1. **إنشاء حساب على Railway**
+   - اذهب إلى [railway.app](https://railway.app)
+   - سجل حساب جديد أو سجل دخول
 
-- **Backend**: Django 5.1.7
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap
-- **Database**: SQLite (development)
-- **Additional**: django-bootstrap5, django-filter, Pillow
+2. **ربط المشروع**
+   - اضغط على "New Project"
+   - اختر "Deploy from GitHub repo"
+   - اربط مستودع GitHub الخاص بك
 
-## Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd jobs
+3. **إعداد المتغيرات البيئية**
+   في Railway Dashboard، أضف هذه المتغيرات البيئية:
+   ```
+   DJANGO_SECRET_KEY=your-secret-key-here
+   DEBUG=False
+   DATABASE_URL=postgresql://... (سيتم إنشاؤه تلقائياً)
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASSWORD=your-app-password
    ```
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+4. **إعداد قاعدة البيانات**
+   - في Railway، أضف خدمة PostgreSQL
+   - سيتم ربطها تلقائياً مع متغير DATABASE_URL
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+5. **النشر**
+   - Railway سيقوم ببناء وتشغيل المشروع تلقائياً
+   - يمكنك مراقبة السجلات في Railway Dashboard
 
-4. **Run migrations**
-   ```bash
-   python manage.py migrate
-   ```
+### الملفات المطلوبة للنشر:
+- `requirements.txt` - تبعيات Python
+- `Procfile` - أوامر التشغيل
+- `railway.json` - إعدادات Railway
+- `nixpacks.toml` - إعدادات البناء
+- `runtime.txt` - إصدار Python
 
-5. **Create superuser (optional)**
-   ```bash
-   python manage.py createsuperuser
-   ```
+### ملاحظات مهمة:
+- تأكد من أن DEBUG=False في الإنتاج
+- استخدم متغيرات بيئية للبيانات الحساسة
+- قاعدة البيانات ستكون PostgreSQL في الإنتاج
+- الملفات الثابتة ستُجمع تلقائياً
 
-6. **Run the development server**
-   ```bash
-   python manage.py runserver
-   ```
+## التطوير المحلي
 
-7. **Visit the website**
-   Open your browser and go to `http://127.0.0.1:8000`
+```bash
+# تثبيت التبعيات
+pip install -r requirements.txt
 
-## Project Structure
+# تشغيل الهجرات
+python manage.py migrate
 
-```
-jobs/
-├── accounts/          # User authentication and profiles
-├── Blog/             # Blog system
-├── contact/          # Contact form
-├── home/             # Home page
-├── job/              # Job posting and management
-├── pages/            # Additional pages
-├── project/          # Django project settings
-├── static/           # Static files (CSS, JS, images)
-├── templates/        # Base templates
-├── media/            # User uploaded files
-└── manage.py         # Django management script
+# إنشاء مستخدم مشرف
+python manage.py createsuperuser
+
+# تشغيل الخادم
+python manage.py runserver
 ```
 
-## Usage
-
-### For Job Seekers
-1. Register an account
-2. Browse available jobs
-3. Apply for positions by uploading your CV
-4. Manage your profile and applications
-
-### For Employers
-1. Register an account
-2. Post new job opportunities
-3. Review applications
-4. Manage your job postings
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Author
-
-Mohmed Galal 
+## الميزات:
+- نظام تسجيل دخول وتسجيل خروج
+- نشر وإدارة الوظائف
+- نظام تصفية وبحث
+- مدونة
+- نظام تواصل
+- واجهة مستخدم حديثة مع Bootstrap 5 

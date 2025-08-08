@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-u34t+nf9#1$mjel%2eu#8f@o=o0lg9zu*(n-92%enir8y8hz1l')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['web-production-f546a8.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['web-production-f546a8.up.railway.app', 'localhost', '127.0.0.1', '.railway.app']
 
 
 # Application definition
@@ -160,3 +160,25 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     USE_X_FORWARDED_HOST = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY'
+
+# Create superuser if environment variables are set
+if os.environ.get('DJANGO_SUPERUSER_EMAIL'):
+    import subprocess
+    try:
+        email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
+        username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
+        if email and username:
+            subprocess.run([
+                'python', 'manage.py', 'createsuperuser',
+                '--noinput',
+                '--email', email,
+                '--username', username,
+            ], check=True)
+    except subprocess.CalledProcessError:
+        pass  # Superuser might already exist
