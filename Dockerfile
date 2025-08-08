@@ -26,5 +26,5 @@ RUN python manage.py collectstatic --noinput
 # إظهار المنفذ (للتوثيق فقط)
 EXPOSE 8000
 
-# تشغيل gunicorn مع قراءة المنفذ من متغير البيئة PORT
+# تشغيل gunicorn مع قراءة المنفذ من البيئة
 CMD ["sh", "-c", "gunicorn project.wsgi --bind 0.0.0.0:${PORT:-8000} --workers 2 --timeout 120"]
