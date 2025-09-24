@@ -34,6 +34,7 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 class Apply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     job = models.ForeignKey(Job,related_name='apply_job', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
