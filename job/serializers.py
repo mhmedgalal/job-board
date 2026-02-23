@@ -7,16 +7,42 @@ class CategorySerializer(serializers.ModelSerializer):
         fields  = '__all__'
 
 class JobSerializer(serializers.ModelSerializer):
-     category = serializers.SlugRelatedField(
-    queryset=Category.objects.all(),
-    slug_field="name"
-)
-     class Meta:
+    owner = serializers.ReadOnlyField(source='owner.id')
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='name'
+    )
+
+    class Meta:
         model = Job
-        exclude  = ["slug","owner"]
+        fields = [
+            'id',
+            'owner',
+            'title',
+            'job_type',
+            'description',
+            'experience',
+            'published_at',
+            'vacancy',
+            'salary',
+            'category',
+            'image',
+        ]
+        read_only_fields = ['id', 'owner', 'published_at']
 
 
 class ApplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Apply
-        exclude  = ["created_at"]
+        fields = [
+            'id',
+            'user',
+            'job',
+            'name',
+            'email',
+            'website',
+            'cv',
+            'cover_letter',
+            'created_at',
+        ]
+        read_only_fields = ['id', 'user', 'created_at']

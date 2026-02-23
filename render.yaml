@@ -2,10 +2,13 @@ services:
   - type: web
     name: job-board
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn jobsproject.wsgi"
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    startCommand: "python manage.py migrate && gunicorn project.wsgi --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+    healthCheckPath: /health/
     envVars:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DEBUG
         value: False
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
