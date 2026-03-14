@@ -1,5 +1,9 @@
+[build]
+builder = "nixpacks"
+buildCommand = "bash build.sh"
+
 [deploy]
-startCommand = "gunicorn project.wsgi --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+startCommand = "bash railway-start.sh"
 healthcheckPath = "/"
 healthcheckTimeout = 600
 restartPolicyType = "on_failure"
