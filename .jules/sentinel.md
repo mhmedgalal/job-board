@@ -1,0 +1,4 @@
+## 2024-05-24 - [Missing Authentication on Sensitive Endpoints]
+**Vulnerability:** Found `profile` and `edit_profile` views in `accounts/views.py` were missing `@login_required` decorators, meaning they could be accessed by unauthenticated users, leading to `AnonymousUser` passing to profile fetching and crashing the server or exposing sensitive workflows.
+**Learning:** In Django functional views, it's easy to forget to add `@login_required`. Without it, `request.user` can be `AnonymousUser`.
+**Prevention:** Always verify that functional views accessing `request.user` or performing sensitive operations have the `@login_required` decorator applied.
