@@ -1,0 +1,4 @@
+## 2024-05-17 - Missing Authentication Check on Profile Endpoint
+**Vulnerability:** The `/accounts/profile/` and `/accounts/edit_profile/` views did not use the `@login_required` decorator, allowing unauthenticated users to access endpoints that directly query user objects via `request.user`. This caused an `AnonymousUser` object to be used in the `Profile.objects.get(user=request.user)` query, leading to an application error and potential data exposure or unhandled exception.
+**Learning:** Always explicitly protect views that rely on `request.user` being a valid, authenticated user. Django does not enforce authentication automatically on functional views; developers must explicitly add decorators like `@login_required` or check `request.user.is_authenticated`.
+**Prevention:** Consistently apply `@login_required` to all views performing operations restricted to logged-in users, especially those fetching or modifying user-specific data.
