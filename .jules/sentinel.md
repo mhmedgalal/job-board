@@ -1,0 +1,4 @@
+## 2025-03-18 - Missing Authentication on Profile Endpoints
+**Vulnerability:** The `profile` and `edit_profile` views in `accounts/views.py` were missing the `@login_required` decorator, allowing unauthenticated users to access sensitive profile endpoints which could lead to unauthorized data exposure or modification.
+**Learning:** Always ensure endpoints that deal with user-specific data require authentication to prevent Broken Access Control vulnerabilities. The absence of this decorator in Django views directly exposes the logic to the public.
+**Prevention:** In Django projects, strictly mandate the use of `@login_required` on all views dealing with personal or sensitive data. Incorporate automated security linting (e.g., `bandit` or custom rules) during CI to catch missing authentication decorators on sensitive routes.
