@@ -11,7 +11,7 @@ def contact(request):
             subject,
             message,
             settings.EMAIL_HOST_USER,
-            [email],
+            [settings.EMAIL_HOST_USER],
             fail_silently=False,
         )
     return render(request, 'contact/contact.html')
