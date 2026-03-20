@@ -1,0 +1,4 @@
+## 2024-05-24 - [Open Mail Relay in Contact Form]
+**Vulnerability:** The contact form's `send_mail` function blindly used the user-provided `email` address as the recipient of the email. This creates an Open Mail Relay vulnerability, allowing malicious actors to send spam or phishing emails to any address through the application's mail server.
+**Learning:** Never trust user input for sensitive operations like email routing. Always validate and sanitize user-provided email addresses, and send contact form messages to a trusted administrative address, including the user's email only in the message body.
+**Prevention:** Hardcode or configure the recipient address in the application settings (e.g., `settings.DEFAULT_FROM_EMAIL`). Include user details in the body of the email rather than as recipient headers.
