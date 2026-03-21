@@ -1,0 +1,4 @@
+## 2024-05-24 - [CRITICAL] Fix Open Mail Relay in contact form
+**Vulnerability:** The `contact/views.py` `contact` view read the `email` field from user input and used it as the destination address in the `send_mail` function call (`recipient_list=[email]`). This permitted attackers to abuse the contact form endpoint to send arbitrary spam or phishing emails to any victim using the application's trusted email host (Open Mail Relay).
+**Learning:** Never use untrusted user input directly as a recipient address in email sending functions. This type of vulnerability compromises the application's email sending reputation and allows the application to be used as a spam relay.
+**Prevention:** Hardcode or properly configure recipient addresses from internal application settings (e.g., `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`). Include user-provided email addresses only within the message body or the `Reply-To` header.
