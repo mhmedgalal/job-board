@@ -1,0 +1,4 @@
+## 2024-03-22 - [Missing Authentication Decorators on User-Specific Views]
+**Vulnerability:** The `profile` and `edit_profile` views in `accounts/views.py` were missing the `@login_required` decorator, allowing unauthenticated users to trigger unhandled exceptions (TypeError or Profile.DoesNotExist) and bypassing authorization checks since they accessed `request.user`.
+**Learning:** In Django, any view relying on `request.user` being a valid authenticated user must be explicitly protected with `@login_required` (or `LoginRequiredMixin` for CBVs). Otherwise, `request.user` will be `AnonymousUser`.
+**Prevention:** Always verify that views accessing user-specific data have the appropriate authentication decorators or mixins. Add a pre-commit hook or linter rule to check for `@login_required` when `request.user` is used in a view.
