@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 # Create your models here.
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -25,7 +26,7 @@ class Job(models.Model):
     vacancy = models.IntegerField(default=1)
     salary = models.IntegerField(default=1)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=image_upload, null=True, blank=True)
+    image = models.ImageField(upload_to=image_upload, null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp', 'gif'])])
     slug = models.SlugField(null=True, blank=True)
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -39,7 +40,7 @@ class Apply(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     website = models.URLField(max_length=100)
-    cv = models.FileField(upload_to='apply/')
+    cv = models.FileField(upload_to='apply/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
     cover_letter = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):

@@ -1,0 +1,4 @@
+## 2024-05-20 - [File Upload Arbitrary File Extension]
+**Vulnerability:** File and Image upload fields (`FileField`, `ImageField`) lacked proper file extension validation.
+**Learning:** In Django, `FileField` and `ImageField` do not restrict file extensions by default. This could allow users to upload malicious files like `.html` files containing XSS payloads, or execute arbitrary code if they upload an executable script (e.g. `.php`) and the web server is configured to serve them or execute them. While `ImageField` verifies that the file is an image using Pillow, if an application relies on file extensions for security, it is best to restrict uploaded files to known, safe extensions.
+**Prevention:** Always use `FileExtensionValidator` to enforce strict extension checks on `FileField` and `ImageField`.
