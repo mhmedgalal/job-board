@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import FileExtensionValidator
 
 
 class City(models.Model):
@@ -15,7 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     phone = models.CharField(max_length=15, blank=True, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(upload_to="profile/", blank=True, null=True)
+    image = models.ImageField(upload_to="profile/", blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp', 'gif'])])
     bio = models.CharField(max_length=255, blank=True, null=True)
     reset_password_token = models.CharField(max_length=50, blank=True, null=True, default="")
     reset_password_expires = models.DateTimeField(blank=True, null=True)
