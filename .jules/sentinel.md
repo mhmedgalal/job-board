@@ -1,0 +1,4 @@
+## 2024-03-24 - [CRITICAL] Fix Open Mail Relay in contact form
+**Vulnerability:** The contact form (`contact/views.py`) took the `email` field from the POST request and used it as the recipient address in `send_mail()`. This allowed an attacker to send emails to any recipient using the application's email infrastructure, effectively creating an Open Mail Relay vulnerability.
+**Learning:** Never trust user input to dictate the recipient of a system-generated email unless the user is explicitly sending it to themselves (e.g., password resets). By setting the recipient to the attacker-provided email, the system became an open relay.
+**Prevention:** Hardcode the recipient email address to a trusted internal address (like `settings.DEFAULT_FROM_EMAIL` or `settings.EMAIL_HOST_USER`) when sending contact form submissions. Embed the user's email address within the message body instead.
