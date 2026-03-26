@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 from django.conf import settings
@@ -125,6 +126,15 @@ def upload_avatar(request):
     content_type = getattr(file_obj, 'content_type', '')
     if content_type and not content_type.startswith('image/'):
         return Response({'error': 'Only image files are allowed.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # SECURE: Validate file extension against an allowed list
+    allowed_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
+    ext = os.path.splitext(file_obj.name)[1].lower()
+    if ext not in allowed_extensions:
+        return Response(
+            {'error': 'Invalid file extension. Only images are allowed.'},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     profile, _ = Profile.objects.get_or_create(user=request.user)
     profile.image = file_obj
