@@ -1,0 +1,4 @@
+## 2025-03-31 - Open Email Relay in Contact Form
+**Vulnerability:** The contact form allowed any user-provided email address to be used as the recipient list in `send_mail()`. This allowed attackers to use the website's email server as an open relay to send spam or phishing emails to any address they specified.
+**Learning:** Never trust user input to populate the recipient of outgoing emails unless it is to the authenticated user themselves. The `send_mail` recipient list must always be controlled by the application, not an arbitrary form submission.
+**Prevention:** Use a pre-configured, trusted administrative email address (like `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`) for the `recipient_list` when handling contact forms. Include the user's provided email address in the message body instead.
