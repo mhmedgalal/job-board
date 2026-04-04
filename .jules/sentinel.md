@@ -1,0 +1,4 @@
+## 2024-05-14 - Authorization Bypass in Password Update Endpoint
+**Vulnerability:** The general `update_user` endpoint (PATCH /api/update_user/) allowed updating the password field by simply supplying a new `password` in the JSON body. This bypassed the `change_password` endpoint which correctly requires the `old_password` to verify the user's intent.
+**Learning:** Overlapping responsibilities between a generic "update profile" endpoint and specific security-sensitive actions (like password change) can lead to bypassing security controls (like checking the old password).
+**Prevention:** Ensure that generic profile update endpoints explicitly filter out sensitive fields (like password, role, permissions) and direct users to dedicated endpoints for these actions that implement the necessary security checks.

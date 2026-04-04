@@ -77,12 +77,10 @@ def update_user(request):
             setattr(user, field, data[field])
 
     if data.get('password'):
-        if len(data['password']) < 8:
-            return Response(
-                {'password': ['Password must be at least 8 characters long.']},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        user.set_password(data['password'])
+        return Response(
+            {'password': ['Please use the change_password endpoint to update your password.']},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     user.save()
     return Response(userSerializers(user).data, status=status.HTTP_200_OK)
