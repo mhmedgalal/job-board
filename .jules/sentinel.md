@@ -1,0 +1,4 @@
+## 2024-04-05 - Fix Arbitrary Email Sending in Contact Form
+**Vulnerability:** The contact form sent emails directly to the user-provided email address (`email = request.POST.get('email')`) with the user's message.
+**Learning:** This is an Arbitrary Email Sending (Open Relay) vulnerability. Attackers could use this endpoint to send arbitrary messages to any email address, making the application a source of spam or phishing, which can lead to the domain being blacklisted.
+**Prevention:** Always send contact form submissions to a controlled internal address (e.g., the site administrator). If you need to reply to the user, include their email address in the body of the message or use the `reply_to` header, but never use the user-supplied email as the direct `recipient_list` for untrusted content.
