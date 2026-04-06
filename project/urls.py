@@ -17,6 +17,7 @@ urlpatterns = [
     path('health/', health_check, name='health_check'),
 
     # حسابات المستخدمين (HTML)
+    path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
 
     # API خاص بال accounts (JSON)
