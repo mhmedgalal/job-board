@@ -1,0 +1,4 @@
+## 2024-04-08 - [Hardcoded Google Maps API Key in Template]
+**Vulnerability:** Found a hardcoded Google Maps API key (AIzaSy...) in `job/templates/job_details.html`. Hardcoded API keys can be easily scraped from source code or accidentally committed to public repositories, leading to unauthorized usage, quota exhaustion, and financial charges.
+**Learning:** External API keys were embedded directly in frontend template scripts rather than being injected through secure environment variables and backend context.
+**Prevention:** Always store sensitive API keys in environment variables. Pass them securely to the frontend using template context variables (e.g., `{{ api_key }}`) or inject them during the build process, ensuring they are never hardcoded in source files. Add key restrictions (HTTP referrers) in the Google Cloud Console.
