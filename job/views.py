@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from django.urls import reverse
+from django.conf import settings
 
 from job.filter import JobFilter
 from .models import Job
@@ -28,7 +29,7 @@ def job_details(request, slug):
             return redirect(reverse('jobs:job_list'))
     else:
         form = ApplyForm()
-    context = {'job': job, 'form': form}
+    context = {'job': job, 'form': form, 'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY}
     return render(request, 'job_details.html', context) 
 
 @login_required
