@@ -1,0 +1,4 @@
+## 2025-04-10 - [CRITICAL] Fix open email relay in contact form
+**Vulnerability:** The contact form's `send_mail` function blindly used the user-provided `email` address as the *recipient* of the email (`[email]`). This allowed anyone to use the form to send arbitrary emails to any address, turning the application into an open email relay for spam or phishing.
+**Learning:** Never trust user input for sensitive operations like email recipients unless it's strictly validated or intended (e.g., password resets). In a contact form, the recipient should be hardcoded to an admin address, and the user's email should only be included in the message body.
+**Prevention:** Hardcode administrative email recipients (e.g., `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`) in contact forms. Include sender contact information in the body of the message rather than using it as the `To:` address.
