@@ -1,0 +1,4 @@
+## 2024-05-24 - [High] Add authentication to profile endpoints
+**Vulnerability:** The `profile` and `edit_profile` views in `accounts/views.py` were missing the `@login_required` decorator. If an unauthenticated user accessed these endpoints, it led to an authentication bypass trying to load the anonymous user's profile and ultimately a 500 server error, potentially leaking stack traces.
+**Learning:** We must ensure all endpoints that fetch or modify user-specific data are explicitly protected with `@login_required` to prevent unauthorized access and unhandled errors when `request.user` is an `AnonymousUser`.
+**Prevention:** Always verify authentication requirements for views that depend on `request.user`. Incorporate automated tests that explicitly attempt to access protected endpoints without authentication to ensure a 302 redirect to the login page occurs.
