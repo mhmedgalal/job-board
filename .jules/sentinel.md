@@ -1,0 +1,4 @@
+## 2025-04-13 - [Fix Open Mail Relay]
+**Vulnerability:** The application's contact form used the user-provided 'email' field directly as the `recipient_list` in the Django `send_mail` function. This created an open mail relay, allowing malicious actors to send arbitrary emails (spam/phishing) to any address using the server's email infrastructure.
+**Learning:** Contact forms or features that send emails must always send to predefined, trusted addresses (like site administrators). User-provided email addresses should only be used in the message body, "Reply-To" header, or for sending confirmation emails back to that specific user (with static content).
+**Prevention:** Never use user-controllable input directly as the destination address (`to` or `bcc`) in email sending functions unless the input has been explicitly verified (e.g., password reset flow) and the email content is tightly controlled by the application.
