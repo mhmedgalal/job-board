@@ -7,11 +7,18 @@ def contact(request):
         subject = request.POST.get('subject')
         email = request.POST.get('email')
         message = request.POST.get('message')
+
+        # Include sender email in the message
+        full_message = f"From: {email}\n\nMessage:\n{message}"
+
+        # Send to site admin, not the user-provided email
+        admin_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@example.com')
+
         send_mail(
             subject,
-            message,
+            full_message,
             settings.EMAIL_HOST_USER,
-            [email],
+            [admin_email],
             fail_silently=False,
         )
     return render(request, 'contact/contact.html')
