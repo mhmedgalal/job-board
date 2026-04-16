@@ -7,11 +7,14 @@ def contact(request):
         subject = request.POST.get('subject')
         email = request.POST.get('email')
         message = request.POST.get('message')
+        # SECURITY FIX: Send email to admin (EMAIL_HOST_USER) instead of user-provided email
+        # to prevent open relay / spam gateway vulnerability.
+        formatted_message = f"Message from: {email}\n\n{message}"
         send_mail(
             subject,
-            message,
+            formatted_message,
             settings.EMAIL_HOST_USER,
-            [email],
+            [settings.EMAIL_HOST_USER],
             fail_silently=False,
         )
     return render(request, 'contact/contact.html')
