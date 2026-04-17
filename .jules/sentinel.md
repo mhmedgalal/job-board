@@ -1,0 +1,4 @@
+## 2024-05-24 - Fix Open Email Relay in Contact Form
+**Vulnerability:** The contact form in `contact/views.py` took arbitrary user input for the `email` field and used it as the recipient (`recipient_list`) in Django's `send_mail()` function. This effectively turned the server into an open relay, allowing an attacker to use the server to send spam or phishing emails to any address from the server's configured email host.
+**Learning:** Never trust user input for email routing destinations. The recipient address for a contact form submission should be a hardcoded, trusted address (e.g., the site administrator), while the user's provided email should only be included in the message body or set as the `Reply-To` header.
+**Prevention:** Always use internal settings variables (like `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`) for the recipient address when sending messages submitted from contact forms to site owners.
