@@ -1,0 +1,4 @@
+## 2024-05-16 - Prevent Open Mail Relay in Contact Forms
+**Vulnerability:** The application was passing the user-provided `email` address from the contact form directly into the `recipient_list` of Django's `send_mail` function. This created an open mail relay vulnerability, allowing attackers to use the application's email server to send emails to arbitrary recipients (e.g., for spam or phishing), potentially damaging the application's email reputation.
+**Learning:** Never trust user input for email recipient lists, especially in unauthenticated endpoints like a contact form.
+**Prevention:** Always hardcode or pull recipient addresses from secure server-side settings (like `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`). Include the user's email address in the message body or Reply-To header instead of the recipient list.
