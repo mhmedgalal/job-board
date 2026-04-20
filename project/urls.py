@@ -18,6 +18,7 @@ urlpatterns = [
 
     # حسابات المستخدمين (HTML)
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('accounts/', include('django.contrib.auth.urls')),
 
     # API خاص بال accounts (JSON)
     path('api/', include('accounts.url_api')),  
