@@ -1,0 +1,4 @@
+## 2025-04-25 - [Missing Authentication on Profile Endpoints]
+**Vulnerability:** The `/accounts/profile/` and `/accounts/edit_profile/` endpoints were accessible without authentication. Since `request.user` is an `AnonymousUser` for unauthenticated requests, attempting to fetch `Profile.objects.get(user=request.user)` resulted in a `TypeError` and a 500 Internal Server Error, bypassing the intended authorization flow.
+**Learning:** Always explicitly protect views that expect an authenticated user with `@login_required` or equivalent checks. Relying on implicit crashes (like querying by user) causes poor user experience and potential information leakage via 500 errors.
+**Prevention:** Ensure all views in `accounts/views.py` that rely on `request.user` to fetch user-specific data are wrapped with the `@login_required` decorator.
