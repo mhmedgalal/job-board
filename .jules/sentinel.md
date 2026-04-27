@@ -1,0 +1,4 @@
+## 2026-04-27 - [Fix Open Email Relay in Contact Form]
+**Vulnerability:** The application was acting as an open email relay by sending emails directly to any user-provided email address in the `contact/views.py` `send_mail` function. This could be abused for spam or phishing, as attackers could submit arbitrary emails to be sent from our domain.
+**Learning:** Contact form implementations often mistake the user's email input as the destination for the message rather than the source/reply-to address. This creates a critical open relay.
+**Prevention:** Always ensure that contact forms send emails *to* a trusted, internal admin address (like `settings.DEFAULT_FROM_EMAIL`), and optionally include the user's email in the message body or as a `Reply-To` header, but never as the direct `recipient_list`.
