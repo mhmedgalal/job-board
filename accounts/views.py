@@ -24,10 +24,12 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
+@login_required
 def profile(request):
     pro = Profile.objects.get(user=request.user)
     return render(request, 'acc/profile.html', {'p': pro})
 
+@login_required
 def edit_profile(request):
     profile = Profile.objects.get(user=request.user)
     if request.method == 'POST':
