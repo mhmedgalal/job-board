@@ -1,0 +1,4 @@
+## 2025-04-30 - Open Mail Relay in Contact Form
+**Vulnerability:** The application's contact form `contact/views.py` used the `email` from the user's `POST` request as the recipient of the email in the `send_mail` call. This allows any user to use the form to send an email to any arbitrary address using the application's email server.
+**Learning:** Sending emails directly to a user-provided recipient from an unauthenticated form effectively turns the application into an open mail relay. It can be abused to send spam, phishing links, or other malicious content, which impacts the app's email server reputation.
+**Prevention:** Unauthenticated contact forms should always send emails to an internal/admin-controlled recipient address (like `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`). Information from the user (such as their email, subject, or message) should be placed into the email's body instead of the headers.
