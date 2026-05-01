@@ -1,0 +1,4 @@
+## 2025-03-08 - Prevent Open Mail Relay in Contact Form
+**Vulnerability:** The contact form was sending an email *to* the user-provided email address (`[email]`) with a user-provided subject and message. This essentially turned the contact endpoint into an Open Mail Relay, allowing attackers to use the server to send spam or phishing emails from the site's official email address.
+**Learning:** Contact form endpoints must never use user-provided email addresses as the recipient (`to` address). They should always send the email to a configured administrative or internal email address, using the user's email only as the `reply-to` or embedding it in the message body.
+**Prevention:** Always hardcode or use environment variables for the recipient address in contact forms (`settings.DEFAULT_FROM_EMAIL` or `settings.EMAIL_HOST_USER`), rather than passing user input to the recipient list.
