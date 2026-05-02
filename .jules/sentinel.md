@@ -1,0 +1,4 @@
+## 2026-05-02 - Fix Open Mail Relay in contact view
+**Vulnerability:** The application's contact view (`contact/views.py`) directly used the user-provided email address as the recipient of an email generated via the application's mailer. This allows anyone to use the application to send spam or malicious emails from the server's configured email address to an arbitrary victim, bypassing standard spam protections (Open Mail Relay).
+**Learning:** Never use user-provided email addresses as the `recipient_list` when sending emails through a site's general contact form, as it enables Open Mail Relay attacks.
+**Prevention:** In contact forms, always send the generated email to a predefined site administrator or support email address, and include the user-provided email address in the body of the message so the administrator can reply.
