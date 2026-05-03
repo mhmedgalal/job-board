@@ -7,11 +7,15 @@ def contact(request):
         subject = request.POST.get('subject')
         email = request.POST.get('email')
         message = request.POST.get('message')
+
+        full_message = f"From: {email}\n\nMessage:\n{message}"
+        recipient = getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@example.com')
+
         send_mail(
             subject,
-            message,
+            full_message,
             settings.EMAIL_HOST_USER,
-            [email],
+            [recipient],
             fail_silently=False,
         )
     return render(request, 'contact/contact.html')
