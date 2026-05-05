@@ -1,0 +1,4 @@
+## 2025-02-27 - [CRITICAL] Open Email Relay in Contact Form
+**Vulnerability:** Contact form accepted user input (`email`) and used it directly as the recipient address in `send_mail()`, rather than the sender or an informational field.
+**Learning:** Using user-supplied email addresses as the `recipient_list` argument for outbound emails transforms the application into an open email relay. Attackers can exploit this to send spam or phishing emails from the application's domain to any victim, potentially damaging the domain's reputation.
+**Prevention:** Always use internal/administrative email addresses (e.g., `settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`) for the recipient of contact forms. Include the user's email address within the message body or as a `Reply-To` header instead.
