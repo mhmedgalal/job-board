@@ -1,0 +1,4 @@
+## 2024-05-18 - Missing Authentication on Profile Endpoints
+**Vulnerability:** Unauthenticated users could access `/accounts/profile/` and `/accounts/edit_profile/` endpoints, resulting in a 500 Server Error because `request.user` resolved to `AnonymousUser` instead of a user instance when attempting to look up the `Profile` model.
+**Learning:** In Django, views that access user-specific data from `request.user` and query the database (e.g. `Profile.objects.get(user=request.user)`) must be protected by the `@login_required` decorator to prevent 500 errors and ensure only authenticated users can access the endpoint.
+**Prevention:** Always ensure views that interact with `request.user` related objects or sensitive data are appropriately protected using `@login_required` or equivalent authentication checks.
