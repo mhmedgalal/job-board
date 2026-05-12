@@ -1,0 +1,4 @@
+## 2025-05-12 - Critical Open Email Relay in Contact Form
+**Vulnerability:** The contact form accepted arbitrary `email`, `subject`, and `message` input and sent an email to the provided `email` address. This could have been exploited to use the application as an open email relay for spam or phishing campaigns, sending emails that appear to originate from our server/domain.
+**Learning:** We need to ensure that forms (like contact forms) that collect user messages and an email address only send the message *to* an internal or administrative email address, not back to the arbitrary user-provided address. The user's address should be used in the `Reply-To` header or message body instead.
+**Prevention:** Always hardcode or retrieve the destination email address from secure settings (`settings.EMAIL_HOST_USER` or `settings.DEFAULT_FROM_EMAIL`). Do not trust user input for the destination address parameter in `send_mail()`.
