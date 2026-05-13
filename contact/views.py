@@ -8,10 +8,10 @@ def contact(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
         send_mail(
-            subject,
-            message,
+            f"Contact Form: {subject}",
+            f"From: {email}\n\n{message}",
             settings.EMAIL_HOST_USER,
-            [email],
+            [settings.DEFAULT_FROM_EMAIL],
             fail_silently=False,
         )
     return render(request, 'contact/contact.html')
