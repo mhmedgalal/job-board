@@ -1,0 +1,4 @@
+## 2024-05-24 - [CRITICAL] Open Mail Relay via Contact Form
+**Vulnerability:** The contact form (`contact/views.py`) directly used the user-provided `email` address as the recipient of the `send_mail` function. This allowed attackers to use our server to send arbitrary emails to anyone by just providing an arbitrary address in the "email" field.
+**Learning:** Never use unsanitized user input as the recipient address in mail-sending functions. If a form is meant to send a message *from* a user, the recipient should be a hardcoded admin address, and the user's email should just be embedded in the message body.
+**Prevention:** Hardcode internal recipient addresses in settings or environment variables. Ensure that mail forms only allow sending *to* controlled addresses, not arbitrary ones provided by the user.
