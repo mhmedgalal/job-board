@@ -1,0 +1,4 @@
+## 2024-05-18 - Open Mail Relay in Contact Form
+**Vulnerability:** The contact form's `send_mail` function blindly used the user-provided `email` from the POST request as the recipient email address, while using the system's email configuration.
+**Learning:** This constitutes an Open Mail Relay vulnerability. Attackers could exploit this endpoint by making automated requests to send spam emails using our application's email infrastructure. The email provider might blacklist our domain and IP.
+**Prevention:** Never use untrusted, user-supplied input as the `recipient_list` in an email-sending function intended for site administrators. Hardcode the admin/support email or use a configuration variable (e.g., `settings.EMAIL_HOST_USER`) for the recipient, and include the user's email address in the body of the message.
